@@ -1,0 +1,34 @@
+td {
+    padding: 5px;
+    padding-right: 10px;
+}
+
+th {
+    padding: 10px;
+	text-align: center;
+}
+
+h1, h3 {
+	color: rgb(51,122,183);
+}
+
+input-date {
+	text-align: center;
+}
+/*body {
+	background-color: white;
+	background-image: url('/assets/images/background2.jpg');
+}
+
+.list-group-item {
+	background-color: rgb(145,183,210);
+}*/
+
+body {
+	background-color: white;
+	background-image: url('/assets/images/background.jpg');
+}
+
+.list-group-item {
+	background-color: rgb(230,230,230);
+}
