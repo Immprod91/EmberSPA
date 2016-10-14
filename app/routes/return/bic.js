@@ -89,7 +89,10 @@ export default Ember.Route.extend({
 				
 				this.transitionTo('bics.bic', params);
 			}
-			else alert("Error: empty date/time");
+			else 
+			{
+				alert("Error: empty date/time");
+			}
 		}
 	}
 });
