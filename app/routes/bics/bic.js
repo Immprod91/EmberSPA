@@ -2,13 +2,13 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 	model(params) {
-		var url = 'http://localhost:1661/Bicycles(' + params.id + ')';
+		var url = 'http://localhost:60837/Bicycles(' + params.id + ')';
 		var bicycle = Ember.$.getJSON(url);
-		url = 'http://localhost:1661/Histories(' + params.id + ')';
+		url = 'http://localhost:60837/Histories(' + params.id + ')';
 		var history = Ember.$.getJSON(url).then(function(data) {
 			return data.value;
 		});
-		url = 'http://localhost:1661/Departments';
+		url = 'http://localhost:60837/Departments';
 		var deps = Ember.$.getJSON(url).then(function(data) {
 			return data.value;
 		});
@@ -26,7 +26,7 @@ export default Ember.Route.extend({
 	
 	actions: {
 		getBic(params) {
-			var url = 'http://localhost:1661/Histories';
+			var url = 'http://localhost:60837/Histories';
 			var data = {
 				"@odata.type":"TestApp.Models.History",
 				"BicId": params.Id, 
@@ -40,7 +40,7 @@ export default Ember.Route.extend({
 			   contentType: "application/json"
 			});
 			
-			url = 'http://localhost:1661/Bicycles(' + params.Id + ')';
+			url = 'http://localhost:60837/Bicycles(' + params.Id + ')';
 			data = {
 				"@odata.type":"TestApp.Models.Bicycle",
 				"Status": true

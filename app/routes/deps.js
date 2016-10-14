@@ -3,7 +3,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({  
 	model() {
-		var url = 'http://localhost:1661/Departments';
+		var url = 'http://localhost:60837/Departments';
 		return Ember.$.getJSON(url).then(function(data) {
 			return data.value;
 		});
@@ -11,7 +11,7 @@ export default Ember.Route.extend({
 	
 	actions: {
 		createDep() {
-			var url = 'http://localhost:1661/Departments';
+			var url = 'http://localhost:60837/Departments';
 			var data = {
 				"@odata.type":"TestApp.Models.Department",
 				"Name": this.get('controller').get('newDep'), 

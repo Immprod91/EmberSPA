@@ -2,9 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 	model(params) {	
-		var url = 'http://localhost:1661/Bicycles(' + params.id + ')';
+		var url = 'http://localhost:60837/Bicycles(' + params.id + ')';
 		var bic = Ember.$.getJSON(url);
-		url = 'http://localhost:1661/Departments';
+		url = 'http://localhost:60837/Departments';
 		var deps = Ember.$.getJSON(url).then(function(data) {
 			return data.value;
 		});
@@ -30,7 +30,7 @@ export default Ember.Route.extend({
 	
 	actions: {		
 		changeBic(params) {	
-			var url = 'http://localhost:1661/Bicycles(' + params + ')';
+			var url = 'http://localhost:60837/Bicycles(' + params + ')';
 			var data = {
 				"@odata.type":"TestApp.Models.Bicycle",
 				"DepId": this.controllerFor('bics_edit.bic').get('dep'),
@@ -54,7 +54,7 @@ export default Ember.Route.extend({
 		},
 		
 		deleteBic(params) {
-			var url = 'http://localhost:1661/Bicycles(' + params + ')';
+			var url = 'http://localhost:60837/Bicycles(' + params + ')';
 			
 			Ember.$.ajax({
 				type: "DELETE",                                     

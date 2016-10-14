@@ -2,9 +2,9 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 	model(params) {	
-		var url = 'http://localhost:1661/Bicycles(' + params.id + ')';
+		var url = 'http://localhost:60837/Bicycles(' + params.id + ')';
 		var bic = Ember.$.getJSON(url);
-		url = 'http://localhost:1661/Departments';
+		url = 'http://localhost:60837/Departments';
 		var deps = Ember.$.getJSON(url).then(function(data) {
 		  return data.value;
 		});
@@ -59,7 +59,7 @@ export default Ember.Route.extend({
 				}
 				date_str += '.' + date.split(" ")[3];
 				
-				var url = 'http://localhost:1661/Histories(' + params + ')';
+				var url = 'http://localhost:60837/Histories(' + params + ')';
 				var data = {
 					"@odata.type":"TestApp.Models.History",
 					"End_date": date_str + ' ' + time_str,
@@ -73,7 +73,7 @@ export default Ember.Route.extend({
 					contentType: "application/json"
 				});
 				
-				url = 'http://localhost:1661/Bicycles(' + params + ')';
+				url = 'http://localhost:60837/Bicycles(' + params + ')';
 				data = {
 					"@odata.type":"TestApp.Models.Bicycle",
 					"Status": false,

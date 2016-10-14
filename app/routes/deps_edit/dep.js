@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 	model(params) {
-		var url = 'http://localhost:1661/Departments(' + params.id + ')';
+		var url = 'http://localhost:60837/Departments(' + params.id + ')';
 		return Ember.$.getJSON(url);
 	},
 	
@@ -16,7 +16,7 @@ export default Ember.Route.extend({
 	
 	actions: {	
 		changeDep(params) {
-			var url = 'http://localhost:1661/Departments(' + params + ')';
+			var url = 'http://localhost:60837/Departments(' + params + ')';
 			var data = {
 				"@odata.type":"TestApp.Models.Department",
 				"Name": this.controllerFor('deps_edit.dep').get('name'),
@@ -40,7 +40,7 @@ export default Ember.Route.extend({
 		},
 		
 		deleteDep(params) {
-			var url = 'http://localhost:1661/Departments(' + params + ')';
+			var url = 'http://localhost:60837/Departments(' + params + ')';
 			
 			Ember.$.ajax({
 				type: "DELETE",                                     

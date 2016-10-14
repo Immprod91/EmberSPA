@@ -2,11 +2,11 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 	model(params) {
-		var url = 'http://localhost:1661/Bicycles/Default.GetByDep(id=' + params.id + ')';
+		var url = 'http://localhost:60837/Bicycles/Default.GetByDep(id=' + params.id + ')';
 		var bicycles = Ember.$.getJSON(url).then(function(data) {
 			return data.value;
 		});
-		url = 'http://localhost:1661/Departments('+ params.id + ')';
+		url = 'http://localhost:60837/Departments('+ params.id + ')';
 		var department = Ember.$.getJSON(url);
 		
 		var promises = {
@@ -21,7 +21,7 @@ export default Ember.Route.extend({
 	
 	actions: {
 		createBic(params) {
-			var url = 'http://localhost:1661/Bicycles';
+			var url = 'http://localhost:60837/Bicycles';
 			var data = {
 				"@odata.type":"TestApp.Models.Bicycle",
 				"Model": this.get('controller').get('newBic'), 
