@@ -1,0 +1,21 @@
+<div class="list-group-item">
+	Name: {{input type="text" value=name}}
+</div>
+<div class="list-group-item">
+	Address: {{input type="text" value=address  }}
+</div>
+<div class="list-group-item">
+	Email: {{input type="text" value=phone }}
+</div>
+<div class="list-group-item">
+	Phone: {{input type="text" value=email }}
+</div>
+<div class="list-group-item">
+	<img src="http://localhost:1661/Departments/Default.GetLogo(id={{model.Id}})" />
+	{{input type="file" accept="image/*" id="your-files"}}
+</div>
+<div class="list-group-item">
+	<button class="btn btn-primary" {{action "changeDep" model.Id}} >Save changes</button>
+	<button class="btn btn-primary" {{action "cancel" model.Id}} >Cancel</button>
+	<button class="btn btn-primary" {{action "deleteDep" model.Id}} >Delete</button>
+</div>

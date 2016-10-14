@@ -1,0 +1,20 @@
+<div class="list-group-item">
+	Date: 
+	{{input-date displayFormat="DD.MM.YYYY" value=date}}
+</div>
+<div class="list-group-item">
+	Time: 
+	{{input-time displayFormat="HH:mm" pickerDisplayFormat="HH:mm" value=time}}
+</div>
+<div class="list-group-item">
+	Department:
+	<select onchange={{action "selectDep" value="target.value"}}>
+		{{#each deps as |depOption|}}
+			<option value={{depOption.Id}} selected={{eq bic.DepId depOption.Id}}>{{depOption.Name}}</option>
+		{{/each}}
+	</select>
+</div>
+<div class="list-group-item">
+	<button class="btn btn-primary" {{action "returnBic" bic.Id}} >Return Bicycle</button>
+	<button class="btn btn-primary" {{action "cancel" bic.Id}} >Cancel</button>
+</div>

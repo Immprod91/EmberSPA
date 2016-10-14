@@ -1,0 +1,27 @@
+<div class="col-md-4">
+	<div class="list-group-item">
+		{{input type="text" placeholder="New Department" value=newDep }}
+		<button class="btn btn-primary" {{action "createDep"}} disabled={{disabled}}>Add</button>
+    </div>
+	{{#each model as |dep|}}
+		{{#link-to "deps.dep" dep.Id class="list-group-item"}}
+			<table>
+				<thead>
+				</thead>
+				<tbody>
+					<tr>
+						<th rowspan="4" colspan="3">
+							<img src="http://localhost:1661/Departments/Default.GetLogo(id={{dep.Id}})" width="115" height="115"/>
+						</th>
+						<th>{{dep.Name}}</th>
+					</tr>
+				</tbody>
+			</table>
+		{{/link-to}}
+	{{/each}}
+</div>
+<div class="col-md-6">
+	<div class="list-group">
+		{{outlet}}
+	</div>
+</div>

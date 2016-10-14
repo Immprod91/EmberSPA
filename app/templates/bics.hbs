@@ -1,0 +1,24 @@
+<div class="col-md-4">
+	{{#each model as |bic|}}
+		{{#link-to "bics.bic" bic.Id class="list-group-item"}}
+			<table>
+				<thead>
+				</thead>
+				<tbody>
+					<tr>
+						<th rowspan="4" colspan="3">
+							<img src="http://localhost:1661/Bicycles/Default.GetLogo(id={{bic.Id}})" width="170" height="115"/>
+						</th>
+						<th>{{bic.Model}}</th>
+					</tr>
+				</tbody>
+			</table>
+		{{/link-to}}
+	{{/each}}
+</div>
+<div class="col-md-8">
+	<div class="list-group">
+		{{outlet}}
+	</div>
+</div>
+

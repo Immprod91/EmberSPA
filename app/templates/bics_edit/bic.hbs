@@ -1,0 +1,30 @@
+<div class="list-group-item">
+	Model: {{input type="text" value=model }}
+</div>
+<div class="list-group-item">
+	Price: {{input type="text" value=price  }}
+</div>
+<div class="list-group-item">
+	Status:
+	<select onchange={{action "selectStatus" value="target.value"}}>
+		<option value=false selected={{not status}}>free</option>
+		<option value=true selected={{status}}>taken</option>
+	</select>
+</div>
+<div class="list-group-item">
+	DepId:
+	<select onchange={{action "selectDep" value="target.value"}}>
+		{{#each deps as |depOption|}}
+			<option value={{depOption.Id}} selected={{eq bic.DepId depOption.Id}}>{{depOption.Name}}</option>
+		{{/each}}
+	</select>
+</div>
+<div class="list-group-item">
+	<img src="http://localhost:1661/Bicycles/Default.GetLogo(id={{bic.Id}})" />
+	{{input type="file" accept="image/*"}}
+</div>
+<div class="list-group-item">
+	<button class="btn btn-primary" {{action "changeBic" bic.Id}} >Save changes</button>
+	<button class="btn btn-primary" {{action "cancel" bic.Id}} >Cancel</button>
+	<button class="btn btn-primary" {{action "deleteBic" bic.Id}} >Delete</button>
+</div>

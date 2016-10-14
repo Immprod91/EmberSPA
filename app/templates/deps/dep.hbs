@@ -1,0 +1,74 @@
+<div class="list-group-item">
+	<table>
+		<thead>
+			<tr>
+				<th colspan="5">
+					{{model.dep.Name}}
+						({{#link-to "deps_edit.dep" model.dep.Id}}
+							edit
+						{{/link-to}})
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th rowspan="4" colspan="3">
+					<img src="http://localhost:1661/Departments/Default.GetLogo(id={{model.dep.Id}})" />
+				</th>
+				<th colspan="2">Contact Info:</th>
+			</tr>
+			<tr>
+				<th>E-Mail:</th>
+				<th>{{model.dep.Email}}</th>
+			</tr>
+			<tr>
+				<th>Address:</th>
+				<th>{{model.dep.Address}}</th>
+			</tr>
+			<tr>
+				<th>Phone:</th>
+				<th>{{model.dep.Phone}}</th>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="list-group-item">
+	Available Bicycles:
+	{{#if (eq model.bics.length 0)}} 
+		No Bicycles found
+	{{/if}} 
+</div>
+<div class="list-group-item">
+	{{input type="text" placeholder="New Bicycle" value=newBic }}
+	<button class="btn btn-primary" {{action "createBic" model.dep.Id}} disabled={{disabled}}>Add</button>
+</div>
+{{#if (gt model.bics.length 0)}} 
+	<div class="list-group-item">	
+		{{#each model.bics as |bic|}}
+			{{#link-to "bics.bic" bic.Id class="list-group-item"}}
+				<table>
+					<thead>
+					</thead>
+					<tbody>
+						<tr>
+							<th rowspan="4" colspan="3">
+								<img src="http://localhost:1661/Bicycles/Default.GetLogo(id={{bic.Id}})" width="170" height="115"/>
+							</th>
+							<th>{{bic.Model}}</th>
+							<th>${{bic.Price}}/hour</th>
+							<th>
+								&lt;
+								{{#if bic.Status}}
+									<font color="red">taken</font>
+								{{else}}
+									<font color="green">free</font>
+								{{/if}}
+								&gt;
+							</th>
+						</tr>
+					</tbody>
+				</table>
+			{{/link-to}}
+		{{/each}}
+	</div>
+{{/if}}

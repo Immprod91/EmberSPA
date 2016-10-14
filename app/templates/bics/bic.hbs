@@ -1,0 +1,104 @@
+<div class="list-group-item">
+	<table>
+		<thead>
+			<tr>
+				<th colspan="5">
+					{{model.bicycle.Model}}
+					({{#link-to "bics_edit.bic" model.bicycle.Id}}
+						edit
+					{{/link-to}})
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th rowspan="4" colspan="3">
+					<img src="http://localhost:1661/Bicycles/Default.GetLogo(id={{model.bicycle.Id}})" />
+				</th>
+				<th>Status:</th>
+				<th>
+					{{#if model.bicycle.Status}}
+						<font color="red">taken</font>
+					{{else}}
+						<font color="green">free</font>
+					{{/if}}
+				</th>
+			</tr>
+			<tr>
+				<th>Price:</th>
+				<th>${{model.bicycle.Price}}/hour</th>
+			</tr>
+			<tr>
+				<th>Total Rent Time:</th>
+				<th>{{model.bicycle.RentTime}} hours</th>
+			</tr>
+			<tr>
+				<th colspan="2">
+					{{#if model.bicycle.Status}}
+						<button class="btn btn-primary" {{action "returnBic" model.bicycle}}>Return bicycle</button>
+					{{else}}
+						<button class="btn btn-primary" {{action "getBic" model.bicycle}}>Get bicycle</button>
+					{{/if}}
+				</th>
+			</tr>
+			<tr>
+				{{#link-to "deps.dep" model.bicycle.DepId}}
+					<th>
+						Back to
+						{{#each model.deps as |dep|}}
+							{{#if (eq model.bicycle.DepId dep.Id)}}
+								{{dep.Name}}
+							{{/if}}
+						{{/each}}
+					</th>
+				{{/link-to}}
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="list-group-item">
+	History: 
+	{{#if (eq model.history.length 0)}} 
+		No records found
+	{{/if}} 
+</div>
+{{#if model.history.length}}
+	<div class="list-group-item">
+		<table border="1px solid lightgray">
+			<thead>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Start date</th>
+					<th>Start Department</th>
+					<th>End date</th>
+					<th>End Department</th>
+				</tr>
+				{{#each model.history as |hist|}}
+					<tr>
+						<th>{{hist.Start_date}}</th>
+						<th>
+							{{#link-to "deps.dep" hist.Start_dep}}
+								{{#each model.deps as |dep|}}
+									{{#if (eq hist.Start_dep dep.Id)}}
+										{{dep.Name}}
+									{{/if}}
+								{{/each}}
+							{{/link-to}}
+						</th>
+						<th>{{hist.End_date}}</th>
+						<th>
+							{{#link-to "deps.dep" hist.End_dep}}
+								{{#each model.deps as |dep|}}
+									{{#if (eq hist.End_dep dep.Id)}}
+										{{dep.Name}}
+									{{/if}}
+								{{/each}}
+							{{/link-to}}
+						</th>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+{{/if}}
