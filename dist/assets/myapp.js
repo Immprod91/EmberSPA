@@ -1310,7 +1310,7 @@ define('myapp/router', ['exports', 'ember', 'myapp/config/environment'], functio
 define('myapp/routes/bics', ['exports', 'ember'], function (exports, _ember) {
 	exports['default'] = _ember['default'].Route.extend({
 		model: function model() {
-			var url = 'http://localhost:1661/Bicycles';
+			var url = 'http://localhost:60837/Bicycles';
 			return _ember['default'].$.getJSON(url).then(function (data) {
 				return data.value;
 			});
@@ -1320,13 +1320,13 @@ define('myapp/routes/bics', ['exports', 'ember'], function (exports, _ember) {
 define('myapp/routes/bics/bic', ['exports', 'ember'], function (exports, _ember) {
 	exports['default'] = _ember['default'].Route.extend({
 		model: function model(params) {
-			var url = 'http://localhost:1661/Bicycles(' + params.id + ')';
+			var url = 'http://localhost:60837/Bicycles(' + params.id + ')';
 			var bicycle = _ember['default'].$.getJSON(url);
-			url = 'http://localhost:1661/Histories(' + params.id + ')';
+			url = 'http://localhost:60837/Histories(' + params.id + ')';
 			var history = _ember['default'].$.getJSON(url).then(function (data) {
 				return data.value;
 			});
-			url = 'http://localhost:1661/Departments';
+			url = 'http://localhost:60837/Departments';
 			var deps = _ember['default'].$.getJSON(url).then(function (data) {
 				return data.value;
 			});
@@ -1344,7 +1344,7 @@ define('myapp/routes/bics/bic', ['exports', 'ember'], function (exports, _ember)
 
 		actions: {
 			getBic: function getBic(params) {
-				var url = 'http://localhost:1661/Histories';
+				var url = 'http://localhost:60837/Histories';
 				var data = {
 					"@odata.type": "TestApp.Models.History",
 					"BicId": params.Id,
@@ -1358,7 +1358,7 @@ define('myapp/routes/bics/bic', ['exports', 'ember'], function (exports, _ember)
 					contentType: "application/json"
 				});
 
-				url = 'http://localhost:1661/Bicycles(' + params.Id + ')';
+				url = 'http://localhost:60837/Bicycles(' + params.Id + ')';
 				data = {
 					"@odata.type": "TestApp.Models.Bicycle",
 					"Status": true
@@ -1384,9 +1384,9 @@ define('myapp/routes/bics/bic', ['exports', 'ember'], function (exports, _ember)
 define('myapp/routes/bics_edit/bic', ['exports', 'ember'], function (exports, _ember) {
 	exports['default'] = _ember['default'].Route.extend({
 		model: function model(params) {
-			var url = 'http://localhost:1661/Bicycles(' + params.id + ')';
+			var url = 'http://localhost:60837/Bicycles(' + params.id + ')';
 			var bic = _ember['default'].$.getJSON(url);
-			url = 'http://localhost:1661/Departments';
+			url = 'http://localhost:60837/Departments';
 			var deps = _ember['default'].$.getJSON(url).then(function (data) {
 				return data.value;
 			});
@@ -1412,7 +1412,7 @@ define('myapp/routes/bics_edit/bic', ['exports', 'ember'], function (exports, _e
 
 		actions: {
 			changeBic: function changeBic(params) {
-				var url = 'http://localhost:1661/Bicycles(' + params + ')';
+				var url = 'http://localhost:60837/Bicycles(' + params + ')';
 				var data = {
 					"@odata.type": "TestApp.Models.Bicycle",
 					"DepId": this.controllerFor('bics_edit.bic').get('dep'),
@@ -1436,7 +1436,7 @@ define('myapp/routes/bics_edit/bic', ['exports', 'ember'], function (exports, _e
 			},
 
 			deleteBic: function deleteBic(params) {
-				var url = 'http://localhost:1661/Bicycles(' + params + ')';
+				var url = 'http://localhost:60837/Bicycles(' + params + ')';
 
 				_ember['default'].$.ajax({
 					type: "DELETE",
@@ -1451,7 +1451,7 @@ define('myapp/routes/bics_edit/bic', ['exports', 'ember'], function (exports, _e
 define('myapp/routes/deps', ['exports', 'ember'], function (exports, _ember) {
 	exports['default'] = _ember['default'].Route.extend({
 		model: function model() {
-			var url = 'http://localhost:1661/Departments';
+			var url = 'http://localhost:60837/Departments';
 			return _ember['default'].$.getJSON(url).then(function (data) {
 				return data.value;
 			});
@@ -1459,7 +1459,7 @@ define('myapp/routes/deps', ['exports', 'ember'], function (exports, _ember) {
 
 		actions: {
 			createDep: function createDep() {
-				var url = 'http://localhost:1661/Departments';
+				var url = 'http://localhost:60837/Departments';
 				var data = {
 					"@odata.type": "TestApp.Models.Department",
 					"Name": this.get('controller').get('newDep'),
@@ -1484,11 +1484,11 @@ define('myapp/routes/deps', ['exports', 'ember'], function (exports, _ember) {
 define('myapp/routes/deps/dep', ['exports', 'ember'], function (exports, _ember) {
 	exports['default'] = _ember['default'].Route.extend({
 		model: function model(params) {
-			var url = 'http://localhost:1661/Bicycles/Default.GetByDep(id=' + params.id + ')';
+			var url = 'http://localhost:60837/Bicycles/Default.GetByDep(id=' + params.id + ')';
 			var bicycles = _ember['default'].$.getJSON(url).then(function (data) {
 				return data.value;
 			});
-			url = 'http://localhost:1661/Departments(' + params.id + ')';
+			url = 'http://localhost:60837/Departments(' + params.id + ')';
 			var department = _ember['default'].$.getJSON(url);
 
 			var promises = {
@@ -1503,7 +1503,7 @@ define('myapp/routes/deps/dep', ['exports', 'ember'], function (exports, _ember)
 
 		actions: {
 			createBic: function createBic(params) {
-				var url = 'http://localhost:1661/Bicycles';
+				var url = 'http://localhost:60837/Bicycles';
 				var data = {
 					"@odata.type": "TestApp.Models.Bicycle",
 					"Model": this.get('controller').get('newBic'),
@@ -1528,7 +1528,7 @@ define('myapp/routes/deps/dep', ['exports', 'ember'], function (exports, _ember)
 define('myapp/routes/deps_edit/dep', ['exports', 'ember'], function (exports, _ember) {
 	exports['default'] = _ember['default'].Route.extend({
 		model: function model(params) {
-			var url = 'http://localhost:1661/Departments(' + params.id + ')';
+			var url = 'http://localhost:60837/Departments(' + params.id + ')';
 			return _ember['default'].$.getJSON(url);
 		},
 
@@ -1542,7 +1542,7 @@ define('myapp/routes/deps_edit/dep', ['exports', 'ember'], function (exports, _e
 
 		actions: {
 			changeDep: function changeDep(params) {
-				var url = 'http://localhost:1661/Departments(' + params + ')';
+				var url = 'http://localhost:60837/Departments(' + params + ')';
 				var data = {
 					"@odata.type": "TestApp.Models.Department",
 					"Name": this.controllerFor('deps_edit.dep').get('name'),
@@ -1566,7 +1566,7 @@ define('myapp/routes/deps_edit/dep', ['exports', 'ember'], function (exports, _e
 			},
 
 			deleteDep: function deleteDep(params) {
-				var url = 'http://localhost:1661/Departments(' + params + ')';
+				var url = 'http://localhost:60837/Departments(' + params + ')';
 
 				_ember['default'].$.ajax({
 					type: "DELETE",
@@ -1588,9 +1588,9 @@ define('myapp/routes/index', ['exports', 'ember'], function (exports, _ember) {
 define('myapp/routes/return/bic', ['exports', 'ember'], function (exports, _ember) {
 	exports['default'] = _ember['default'].Route.extend({
 		model: function model(params) {
-			var url = 'http://localhost:1661/Bicycles(' + params.id + ')';
+			var url = 'http://localhost:60837/Bicycles(' + params.id + ')';
 			var bic = _ember['default'].$.getJSON(url);
-			url = 'http://localhost:1661/Departments';
+			url = 'http://localhost:60837/Departments';
 			var deps = _ember['default'].$.getJSON(url).then(function (data) {
 				return data.value;
 			});
@@ -1656,7 +1656,7 @@ define('myapp/routes/return/bic', ['exports', 'ember'], function (exports, _embe
 					}
 					date_str += '.' + date.split(" ")[3];
 
-					var url = 'http://localhost:1661/Histories(' + params + ')';
+					var url = 'http://localhost:60837/Histories(' + params + ')';
 					var data = {
 						"@odata.type": "TestApp.Models.History",
 						"End_date": date_str + ' ' + time_str,
@@ -1670,7 +1670,7 @@ define('myapp/routes/return/bic', ['exports', 'ember'], function (exports, _embe
 						contentType: "application/json"
 					});
 
-					url = 'http://localhost:1661/Bicycles(' + params + ')';
+					url = 'http://localhost:60837/Bicycles(' + params + ')';
 					data = {
 						"@odata.type": "TestApp.Models.Bicycle",
 						"Status": false,
@@ -1685,7 +1685,9 @@ define('myapp/routes/return/bic', ['exports', 'ember'], function (exports, _embe
 					});
 
 					this.transitionTo('bics.bic', params);
-				} else alert("Error: empty date/time");
+				} else {
+					alert("Error: empty date/time");
+				}
 			}
 		}
 	});
@@ -1976,7 +1978,7 @@ define("myapp/templates/bics", ["exports"], function (exports) {
             morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 0, 0);
             return morphs;
           },
-          statements: [["attribute", "src", ["concat", ["http://localhost:1661/Bicycles/Default.GetLogo(id=", ["get", "bic.Id", ["loc", [null, [10, 69], [10, 75]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "bic.Model", ["loc", [null, [12, 10], [12, 23]]], 0, 0, 0, 0]],
+          statements: [["attribute", "src", ["concat", ["http://localhost:60837/Bicycles/Default.GetLogo(id=", ["get", "bic.Id", ["loc", [null, [10, 70], [10, 76]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "bic.Model", ["loc", [null, [12, 10], [12, 23]]], 0, 0, 0, 0]],
           locals: [],
           templates: []
         };
@@ -3073,7 +3075,7 @@ define("myapp/templates/bics/bic", ["exports"], function (exports) {
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["content", "model.bicycle.Model", ["loc", [null, [6, 5], [6, 28]]], 0, 0, 0, 0], ["block", "link-to", ["bics_edit.bic", ["get", "model.bicycle.Id", ["loc", [null, [7, 33], [7, 49]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [7, 6], [9, 17]]]], ["attribute", "src", ["concat", ["http://localhost:1661/Bicycles/Default.GetLogo(id=", ["get", "model.bicycle.Id", ["loc", [null, [16, 67], [16, 83]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["block", "if", [["get", "model.bicycle.Status", ["loc", [null, [20, 11], [20, 31]]], 0, 0, 0, 0]], [], 1, 2, ["loc", [null, [20, 5], [24, 12]]]], ["content", "model.bicycle.Price", ["loc", [null, [29, 9], [29, 32]]], 0, 0, 0, 0], ["content", "model.bicycle.RentTime", ["loc", [null, [33, 8], [33, 34]]], 0, 0, 0, 0], ["block", "if", [["get", "model.bicycle.Status", ["loc", [null, [37, 11], [37, 31]]], 0, 0, 0, 0]], [], 3, 4, ["loc", [null, [37, 5], [41, 12]]]], ["block", "link-to", ["deps.dep", ["get", "model.bicycle.DepId", ["loc", [null, [45, 26], [45, 45]]], 0, 0, 0, 0]], [], 5, null, ["loc", [null, [45, 4], [54, 16]]]], ["block", "if", [["subexpr", "eq", [["get", "model.history.length", ["loc", [null, [61, 11], [61, 31]]], 0, 0, 0, 0], 0], [], ["loc", [null, [61, 7], [61, 34]]], 0, 0]], [], 6, null, ["loc", [null, [61, 1], [63, 8]]]], ["block", "if", [["get", "model.history.length", ["loc", [null, [65, 6], [65, 26]]], 0, 0, 0, 0]], [], 7, null, ["loc", [null, [65, 0], [104, 7]]]]],
+      statements: [["content", "model.bicycle.Model", ["loc", [null, [6, 5], [6, 28]]], 0, 0, 0, 0], ["block", "link-to", ["bics_edit.bic", ["get", "model.bicycle.Id", ["loc", [null, [7, 33], [7, 49]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [7, 6], [9, 17]]]], ["attribute", "src", ["concat", ["http://localhost:60837/Bicycles/Default.GetLogo(id=", ["get", "model.bicycle.Id", ["loc", [null, [16, 68], [16, 84]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["block", "if", [["get", "model.bicycle.Status", ["loc", [null, [20, 11], [20, 31]]], 0, 0, 0, 0]], [], 1, 2, ["loc", [null, [20, 5], [24, 12]]]], ["content", "model.bicycle.Price", ["loc", [null, [29, 9], [29, 32]]], 0, 0, 0, 0], ["content", "model.bicycle.RentTime", ["loc", [null, [33, 8], [33, 34]]], 0, 0, 0, 0], ["block", "if", [["get", "model.bicycle.Status", ["loc", [null, [37, 11], [37, 31]]], 0, 0, 0, 0]], [], 3, 4, ["loc", [null, [37, 5], [41, 12]]]], ["block", "link-to", ["deps.dep", ["get", "model.bicycle.DepId", ["loc", [null, [45, 26], [45, 45]]], 0, 0, 0, 0]], [], 5, null, ["loc", [null, [45, 4], [54, 16]]]], ["block", "if", [["subexpr", "eq", [["get", "model.history.length", ["loc", [null, [61, 11], [61, 31]]], 0, 0, 0, 0], 0], [], ["loc", [null, [61, 7], [61, 34]]], 0, 0]], [], 6, null, ["loc", [null, [61, 1], [63, 8]]]], ["block", "if", [["get", "model.history.length", ["loc", [null, [65, 6], [65, 26]]], 0, 0, 0, 0]], [], 7, null, ["loc", [null, [65, 0], [104, 7]]]]],
       locals: [],
       templates: [child0, child1, child2, child3, child4, child5, child6, child7]
     };
@@ -3286,7 +3288,7 @@ define("myapp/templates/bics_edit/bic", ["exports"], function (exports) {
         morphs[11] = dom.createElementMorph(element10);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model", ["loc", [null, [2, 34], [2, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [2, 8], [2, 42]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "price", ["loc", [null, [5, 34], [5, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [5, 8], [5, 43]]], 0, 0], ["attribute", "onchange", ["subexpr", "action", ["selectStatus"], ["value", "target.value"], ["loc", [null, [null, null], [9, 64]]], 0, 0], 0, 0, 0, 0], ["attribute", "selected", ["subexpr", "not", [["get", "status", ["loc", [null, [10, 37], [10, 43]]], 0, 0, 0, 0]], [], ["loc", [null, [null, null], [10, 45]]], 0, 0], 0, 0, 0, 0], ["attribute", "selected", ["get", "status", ["loc", [null, [11, 32], [11, 38]]], 0, 0, 0, 0], 0, 0, 0, 0], ["attribute", "onchange", ["subexpr", "action", ["selectDep"], ["value", "target.value"], ["loc", [null, [null, null], [16, 61]]], 0, 0], 0, 0, 0, 0], ["block", "each", [["get", "deps", ["loc", [null, [17, 10], [17, 14]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [17, 2], [19, 11]]]], ["attribute", "src", ["concat", ["http://localhost:1661/Bicycles/Default.GetLogo(id=", ["get", "bic.Id", ["loc", [null, [23, 63], [23, 69]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["inline", "input", [], ["type", "file", "accept", "image/*"], ["loc", [null, [24, 1], [24, 39]]], 0, 0], ["element", "action", ["changeBic", ["get", "bic.Id", ["loc", [null, [27, 54], [27, 60]]], 0, 0, 0, 0]], [], ["loc", [null, [27, 33], [27, 62]]], 0, 0], ["element", "action", ["cancel", ["get", "bic.Id", ["loc", [null, [28, 51], [28, 57]]], 0, 0, 0, 0]], [], ["loc", [null, [28, 33], [28, 59]]], 0, 0], ["element", "action", ["deleteBic", ["get", "bic.Id", ["loc", [null, [29, 54], [29, 60]]], 0, 0, 0, 0]], [], ["loc", [null, [29, 33], [29, 62]]], 0, 0]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model", ["loc", [null, [2, 34], [2, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [2, 8], [2, 42]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "price", ["loc", [null, [5, 34], [5, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [5, 8], [5, 43]]], 0, 0], ["attribute", "onchange", ["subexpr", "action", ["selectStatus"], ["value", "target.value"], ["loc", [null, [null, null], [9, 64]]], 0, 0], 0, 0, 0, 0], ["attribute", "selected", ["subexpr", "not", [["get", "status", ["loc", [null, [10, 37], [10, 43]]], 0, 0, 0, 0]], [], ["loc", [null, [null, null], [10, 45]]], 0, 0], 0, 0, 0, 0], ["attribute", "selected", ["get", "status", ["loc", [null, [11, 32], [11, 38]]], 0, 0, 0, 0], 0, 0, 0, 0], ["attribute", "onchange", ["subexpr", "action", ["selectDep"], ["value", "target.value"], ["loc", [null, [null, null], [16, 61]]], 0, 0], 0, 0, 0, 0], ["block", "each", [["get", "deps", ["loc", [null, [17, 10], [17, 14]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [17, 2], [19, 11]]]], ["attribute", "src", ["concat", ["http://localhost:60837/Bicycles/Default.GetLogo(id=", ["get", "bic.Id", ["loc", [null, [23, 64], [23, 70]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["inline", "input", [], ["type", "file", "accept", "image/*"], ["loc", [null, [24, 1], [24, 39]]], 0, 0], ["element", "action", ["changeBic", ["get", "bic.Id", ["loc", [null, [27, 54], [27, 60]]], 0, 0, 0, 0]], [], ["loc", [null, [27, 33], [27, 62]]], 0, 0], ["element", "action", ["cancel", ["get", "bic.Id", ["loc", [null, [28, 51], [28, 57]]], 0, 0, 0, 0]], [], ["loc", [null, [28, 33], [28, 59]]], 0, 0], ["element", "action", ["deleteBic", ["get", "bic.Id", ["loc", [null, [29, 54], [29, 60]]], 0, 0, 0, 0]], [], ["loc", [null, [29, 33], [29, 62]]], 0, 0]],
       locals: [],
       templates: [child0]
     };
@@ -7098,7 +7100,7 @@ define("myapp/templates/deps", ["exports"], function (exports) {
             morphs[1] = dom.createMorphAt(dom.childAt(element0, [3]), 0, 0);
             return morphs;
           },
-          statements: [["attribute", "src", ["concat", ["http://localhost:1661/Departments/Default.GetLogo(id=", ["get", "dep.Id", ["loc", [null, [14, 72], [14, 78]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "dep.Name", ["loc", [null, [16, 10], [16, 22]]], 0, 0, 0, 0]],
+          statements: [["attribute", "src", ["concat", ["http://localhost:60837/Departments/Default.GetLogo(id=", ["get", "dep.Id", ["loc", [null, [14, 73], [14, 79]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "dep.Name", ["loc", [null, [16, 10], [16, 22]]], 0, 0, 0, 0]],
           locals: [],
           templates: []
         };
@@ -7487,7 +7489,7 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
               morphs[3] = dom.createMorphAt(dom.childAt(element0, [7]), 1, 1);
               return morphs;
             },
-            statements: [["attribute", "src", ["concat", ["http://localhost:1661/Bicycles/Default.GetLogo(id=", ["get", "bic.Id", ["loc", [null, [55, 70], [55, 76]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "bic.Model", ["loc", [null, [57, 11], [57, 24]]], 0, 0, 0, 0], ["content", "bic.Price", ["loc", [null, [58, 12], [58, 25]]], 0, 0, 0, 0], ["block", "if", [["get", "bic.Status", ["loc", [null, [61, 14], [61, 24]]], 0, 0, 0, 0]], [], 0, 1, ["loc", [null, [61, 8], [65, 15]]]]],
+            statements: [["attribute", "src", ["concat", ["http://localhost:60837/Bicycles/Default.GetLogo(id=", ["get", "bic.Id", ["loc", [null, [55, 71], [55, 77]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "bic.Model", ["loc", [null, [57, 11], [57, 24]]], 0, 0, 0, 0], ["content", "bic.Price", ["loc", [null, [58, 12], [58, 25]]], 0, 0, 0, 0], ["block", "if", [["get", "bic.Status", ["loc", [null, [61, 14], [61, 24]]], 0, 0, 0, 0]], [], 0, 1, ["loc", [null, [61, 8], [65, 15]]]]],
             locals: [],
             templates: [child0, child1]
           };
@@ -7777,7 +7779,7 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["content", "model.dep.Name", ["loc", [null, [6, 5], [6, 23]]], 0, 0, 0, 0], ["block", "link-to", ["deps_edit.dep", ["get", "model.dep.Id", ["loc", [null, [7, 34], [7, 46]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [7, 7], [9, 18]]]], ["attribute", "src", ["concat", ["http://localhost:1661/Departments/Default.GetLogo(id=", ["get", "model.dep.Id", ["loc", [null, [16, 70], [16, 82]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "model.dep.Email", ["loc", [null, [22, 8], [22, 27]]], 0, 0, 0, 0], ["content", "model.dep.Address", ["loc", [null, [26, 8], [26, 29]]], 0, 0, 0, 0], ["content", "model.dep.Phone", ["loc", [null, [30, 8], [30, 27]]], 0, 0, 0, 0], ["block", "if", [["subexpr", "eq", [["get", "model.bics.length", ["loc", [null, [37, 11], [37, 28]]], 0, 0, 0, 0], 0], [], ["loc", [null, [37, 7], [37, 31]]], 0, 0]], [], 1, null, ["loc", [null, [37, 1], [39, 8]]]], ["inline", "input", [], ["type", "text", "placeholder", "New Bicycle", "value", ["subexpr", "@mut", [["get", "newBic", ["loc", [null, [42, 53], [42, 59]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [42, 1], [42, 62]]], 0, 0], ["attribute", "disabled", ["get", "disabled", ["loc", [null, [43, 80], [43, 88]]], 0, 0, 0, 0], 0, 0, 0, 0], ["element", "action", ["createBic", ["get", "model.dep.Id", ["loc", [null, [43, 54], [43, 66]]], 0, 0, 0, 0]], [], ["loc", [null, [43, 33], [43, 68]]], 0, 0], ["block", "if", [["subexpr", "gt", [["get", "model.bics.length", ["loc", [null, [45, 10], [45, 27]]], 0, 0, 0, 0], 0], [], ["loc", [null, [45, 6], [45, 30]]], 0, 0]], [], 2, null, ["loc", [null, [45, 0], [74, 7]]]]],
+      statements: [["content", "model.dep.Name", ["loc", [null, [6, 5], [6, 23]]], 0, 0, 0, 0], ["block", "link-to", ["deps_edit.dep", ["get", "model.dep.Id", ["loc", [null, [7, 34], [7, 46]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [7, 7], [9, 18]]]], ["attribute", "src", ["concat", ["http://localhost:60837/Departments/Default.GetLogo(id=", ["get", "model.dep.Id", ["loc", [null, [16, 71], [16, 83]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "model.dep.Email", ["loc", [null, [22, 8], [22, 27]]], 0, 0, 0, 0], ["content", "model.dep.Address", ["loc", [null, [26, 8], [26, 29]]], 0, 0, 0, 0], ["content", "model.dep.Phone", ["loc", [null, [30, 8], [30, 27]]], 0, 0, 0, 0], ["block", "if", [["subexpr", "eq", [["get", "model.bics.length", ["loc", [null, [37, 11], [37, 28]]], 0, 0, 0, 0], 0], [], ["loc", [null, [37, 7], [37, 31]]], 0, 0]], [], 1, null, ["loc", [null, [37, 1], [39, 8]]]], ["inline", "input", [], ["type", "text", "placeholder", "New Bicycle", "value", ["subexpr", "@mut", [["get", "newBic", ["loc", [null, [42, 53], [42, 59]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [42, 1], [42, 62]]], 0, 0], ["attribute", "disabled", ["get", "disabled", ["loc", [null, [43, 80], [43, 88]]], 0, 0, 0, 0], 0, 0, 0, 0], ["element", "action", ["createBic", ["get", "model.dep.Id", ["loc", [null, [43, 54], [43, 66]]], 0, 0, 0, 0]], [], ["loc", [null, [43, 33], [43, 68]]], 0, 0], ["block", "if", [["subexpr", "gt", [["get", "model.bics.length", ["loc", [null, [45, 10], [45, 27]]], 0, 0, 0, 0], 0], [], ["loc", [null, [45, 6], [45, 30]]], 0, 0]], [], 2, null, ["loc", [null, [45, 0], [74, 7]]]]],
       locals: [],
       templates: [child0, child1, child2]
     };
@@ -7915,7 +7917,7 @@ define("myapp/templates/deps_edit/dep", ["exports"], function (exports) {
         morphs[8] = dom.createElementMorph(element5);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "name", ["loc", [null, [2, 33], [2, 37]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [2, 7], [2, 39]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "address", ["loc", [null, [5, 36], [5, 43]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [5, 10], [5, 47]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "phone", ["loc", [null, [8, 34], [8, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [8, 8], [8, 42]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [11, 34], [11, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [11, 8], [11, 42]]], 0, 0], ["attribute", "src", ["concat", ["http://localhost:1661/Departments/Default.GetLogo(id=", ["get", "model.Id", ["loc", [null, [14, 66], [14, 74]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["inline", "input", [], ["type", "file", "accept", "image/*", "id", "your-files"], ["loc", [null, [15, 1], [15, 55]]], 0, 0], ["element", "action", ["changeDep", ["get", "model.Id", ["loc", [null, [18, 54], [18, 62]]], 0, 0, 0, 0]], [], ["loc", [null, [18, 33], [18, 64]]], 0, 0], ["element", "action", ["cancel", ["get", "model.Id", ["loc", [null, [19, 51], [19, 59]]], 0, 0, 0, 0]], [], ["loc", [null, [19, 33], [19, 61]]], 0, 0], ["element", "action", ["deleteDep", ["get", "model.Id", ["loc", [null, [20, 54], [20, 62]]], 0, 0, 0, 0]], [], ["loc", [null, [20, 33], [20, 64]]], 0, 0]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "name", ["loc", [null, [2, 33], [2, 37]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [2, 7], [2, 39]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "address", ["loc", [null, [5, 36], [5, 43]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [5, 10], [5, 47]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "phone", ["loc", [null, [8, 34], [8, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [8, 8], [8, 42]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [11, 34], [11, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [11, 8], [11, 42]]], 0, 0], ["attribute", "src", ["concat", ["http://localhost:60837/Departments/Default.GetLogo(id=", ["get", "model.Id", ["loc", [null, [14, 67], [14, 75]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["inline", "input", [], ["type", "file", "accept", "image/*", "id", "your-files"], ["loc", [null, [15, 1], [15, 55]]], 0, 0], ["element", "action", ["changeDep", ["get", "model.Id", ["loc", [null, [18, 54], [18, 62]]], 0, 0, 0, 0]], [], ["loc", [null, [18, 33], [18, 64]]], 0, 0], ["element", "action", ["cancel", ["get", "model.Id", ["loc", [null, [19, 51], [19, 59]]], 0, 0, 0, 0]], [], ["loc", [null, [19, 33], [19, 61]]], 0, 0], ["element", "action", ["deleteDep", ["get", "model.Id", ["loc", [null, [20, 54], [20, 62]]], 0, 0, 0, 0]], [], ["loc", [null, [20, 33], [20, 64]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -8133,7 +8135,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("myapp/app")["default"].create({"name":"myapp","version":"0.0.0+7de3234c"});
+  require("myapp/app")["default"].create({"name":"myapp","version":"0.0.0+6557f103"});
 }
 
 /* jshint ignore:end */

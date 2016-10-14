@@ -239,7 +239,7 @@ define('myapp/tests/routes/return/bic.jshint', ['exports'], function (exports) {
   QUnit.module('JSHint | routes/return/bic.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'routes/return/bic.js should pass jshint.\nroutes/return/bic.js: line 92, col 18, Expected \'{\' and instead saw \'alert\'.\n\n1 error');
+    assert.ok(true, 'routes/return/bic.js should pass jshint.');
   });
 });
 define('myapp/tests/test-helper', ['exports', 'myapp/tests/helpers/resolver', 'ember-qunit'], function (exports, _myappTestsHelpersResolver, _emberQunit) {
