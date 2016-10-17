@@ -32,6 +32,18 @@ export default Ember.Route.extend({
 				contentType: "application/json"
 			});
 			
+			var formData = new FormData();
+			formData.append('file', $('#file')[0].files[0]);
+			
+			Ember.$.ajax({
+				type: "POST",                                     
+				url: 'http://localhost:60837/Departments/Default.PostLogo(id=' + params + ')',    		   
+				data: formData,
+				contentType: false,
+				enctype: 'multipart/form-data',
+				processData: false
+			});
+	
 			this.transitionTo('deps.dep', params);
 		},
 		

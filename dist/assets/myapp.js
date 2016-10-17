@@ -708,7 +708,15 @@ define('myapp/controllers/deps/dep', ['exports', 'ember'], function (exports, _e
 		newBic: '',
 		disabled: _ember['default'].computed('newBic', function () {
 			return _ember['default'].isEmpty(this.get('newBic'));
-		})
+		}),
+		sortOptions: [{ id: "Model:asc", name: "Sort by model (asc)" }, { id: "Model:desc", name: "Sort by model (desc)" }, { id: "Price:asc", name: "Sort by price (asc)" }, { id: "Price:desc", name: "Sort by price (desc)" }, { id: "Status:asc", name: "Sort by status (asc)" }, { id: "Status:desc", name: "Sort by status (desc)" }],
+		sortProperties: ['Model:asc'],
+		actions: {
+			sortBy: function sortBy(property) {
+				this.set('sortProperties', [property]);
+			}
+		},
+		sortedBics: _ember['default'].computed.sort('model.bics', 'sortProperties')
 	});
 });
 define('myapp/controllers/deps_edit/dep', ['exports', 'ember'], function (exports, _ember) {
@@ -1428,6 +1436,18 @@ define('myapp/routes/bics_edit/bic', ['exports', 'ember'], function (exports, _e
 					contentType: "application/json"
 				});
 
+				var formData = new FormData();
+				formData.append('file', $('#file')[0].files[0]);
+
+				_ember['default'].$.ajax({
+					type: "POST",
+					url: 'http://localhost:60837/Bicycles/Default.PostLogo(id=' + params + ')',
+					data: formData,
+					contentType: false,
+					enctype: 'multipart/form-data',
+					processData: false
+				});
+
 				this.transitionTo('bics.bic', params);
 			},
 
@@ -1556,6 +1576,18 @@ define('myapp/routes/deps_edit/dep', ['exports', 'ember'], function (exports, _e
 					url: url,
 					data: JSON.stringify(data),
 					contentType: "application/json"
+				});
+
+				var formData = new FormData();
+				formData.append('file', $('#file')[0].files[0]);
+
+				_ember['default'].$.ajax({
+					type: "POST",
+					url: 'http://localhost:60837/Departments/Default.PostLogo(id=' + params + ')',
+					data: formData,
+					contentType: false,
+					enctype: 'multipart/form-data',
+					processData: false
 				});
 
 				this.transitionTo('deps.dep', params);
@@ -3288,7 +3320,7 @@ define("myapp/templates/bics_edit/bic", ["exports"], function (exports) {
         morphs[11] = dom.createElementMorph(element10);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model", ["loc", [null, [2, 34], [2, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [2, 8], [2, 42]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "price", ["loc", [null, [5, 34], [5, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [5, 8], [5, 43]]], 0, 0], ["attribute", "onchange", ["subexpr", "action", ["selectStatus"], ["value", "target.value"], ["loc", [null, [null, null], [9, 64]]], 0, 0], 0, 0, 0, 0], ["attribute", "selected", ["subexpr", "not", [["get", "status", ["loc", [null, [10, 37], [10, 43]]], 0, 0, 0, 0]], [], ["loc", [null, [null, null], [10, 45]]], 0, 0], 0, 0, 0, 0], ["attribute", "selected", ["get", "status", ["loc", [null, [11, 32], [11, 38]]], 0, 0, 0, 0], 0, 0, 0, 0], ["attribute", "onchange", ["subexpr", "action", ["selectDep"], ["value", "target.value"], ["loc", [null, [null, null], [16, 61]]], 0, 0], 0, 0, 0, 0], ["block", "each", [["get", "deps", ["loc", [null, [17, 10], [17, 14]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [17, 2], [19, 11]]]], ["attribute", "src", ["concat", ["http://localhost:60837/Bicycles/Default.GetLogo(id=", ["get", "bic.Id", ["loc", [null, [23, 64], [23, 70]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["inline", "input", [], ["type", "file", "accept", "image/*"], ["loc", [null, [24, 1], [24, 39]]], 0, 0], ["element", "action", ["changeBic", ["get", "bic.Id", ["loc", [null, [27, 54], [27, 60]]], 0, 0, 0, 0]], [], ["loc", [null, [27, 33], [27, 62]]], 0, 0], ["element", "action", ["cancel", ["get", "bic.Id", ["loc", [null, [28, 51], [28, 57]]], 0, 0, 0, 0]], [], ["loc", [null, [28, 33], [28, 59]]], 0, 0], ["element", "action", ["deleteBic", ["get", "bic.Id", ["loc", [null, [29, 54], [29, 60]]], 0, 0, 0, 0]], [], ["loc", [null, [29, 33], [29, 62]]], 0, 0]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "model", ["loc", [null, [2, 34], [2, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [2, 8], [2, 42]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "price", ["loc", [null, [5, 34], [5, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [5, 8], [5, 43]]], 0, 0], ["attribute", "onchange", ["subexpr", "action", ["selectStatus"], ["value", "target.value"], ["loc", [null, [null, null], [9, 64]]], 0, 0], 0, 0, 0, 0], ["attribute", "selected", ["subexpr", "not", [["get", "status", ["loc", [null, [10, 37], [10, 43]]], 0, 0, 0, 0]], [], ["loc", [null, [null, null], [10, 45]]], 0, 0], 0, 0, 0, 0], ["attribute", "selected", ["get", "status", ["loc", [null, [11, 32], [11, 38]]], 0, 0, 0, 0], 0, 0, 0, 0], ["attribute", "onchange", ["subexpr", "action", ["selectDep"], ["value", "target.value"], ["loc", [null, [null, null], [16, 61]]], 0, 0], 0, 0, 0, 0], ["block", "each", [["get", "deps", ["loc", [null, [17, 10], [17, 14]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [17, 2], [19, 11]]]], ["attribute", "src", ["concat", ["http://localhost:60837/Bicycles/Default.GetLogo(id=", ["get", "bic.Id", ["loc", [null, [23, 64], [23, 70]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["inline", "input", [], ["type", "file", "accept", "image/*", "id", "file"], ["loc", [null, [24, 1], [24, 49]]], 0, 0], ["element", "action", ["changeBic", ["get", "bic.Id", ["loc", [null, [27, 54], [27, 60]]], 0, 0, 0, 0]], [], ["loc", [null, [27, 33], [27, 62]]], 0, 0], ["element", "action", ["cancel", ["get", "bic.Id", ["loc", [null, [28, 51], [28, 57]]], 0, 0, 0, 0]], [], ["loc", [null, [28, 33], [28, 59]]], 0, 0], ["element", "action", ["deleteBic", ["get", "bic.Id", ["loc", [null, [29, 54], [29, 60]]], 0, 0, 0, 0]], [], ["loc", [null, [29, 33], [29, 62]]], 0, 0]],
       locals: [],
       templates: [child0]
     };
@@ -7303,6 +7335,52 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
       };
     })();
     var child2 = (function () {
+      return {
+        meta: {
+          "revision": "Ember@2.8.2",
+          "loc": {
+            "source": null,
+            "start": {
+              "line": 45,
+              "column": 4
+            },
+            "end": {
+              "line": 47,
+              "column": 4
+            }
+          },
+          "moduleName": "myapp/templates/deps/dep.hbs"
+        },
+        isEmpty: false,
+        arity: 1,
+        cachedFragment: null,
+        hasRendered: false,
+        buildFragment: function buildFragment(dom) {
+          var el0 = dom.createDocumentFragment();
+          var el1 = dom.createTextNode("			");
+          dom.appendChild(el0, el1);
+          var el1 = dom.createElement("option");
+          var el2 = dom.createComment("");
+          dom.appendChild(el1, el2);
+          dom.appendChild(el0, el1);
+          var el1 = dom.createTextNode("\n");
+          dom.appendChild(el0, el1);
+          return el0;
+        },
+        buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
+          var element2 = dom.childAt(fragment, [1]);
+          var morphs = new Array(3);
+          morphs[0] = dom.createAttrMorph(element2, 'value');
+          morphs[1] = dom.createAttrMorph(element2, 'selected');
+          morphs[2] = dom.createMorphAt(element2, 0, 0);
+          return morphs;
+        },
+        statements: [["attribute", "value", ["get", "sortOption.id", ["loc", [null, [46, 19], [46, 32]]], 0, 0, 0, 0], 0, 0, 0, 0], ["attribute", "selected", ["subexpr", "eq", [["get", "sortProperties", ["loc", [null, [46, 49], [46, 63]]], 0, 0, 0, 0], ["get", "sortOption.id", ["loc", [null, [46, 64], [46, 77]]], 0, 0, 0, 0]], [], ["loc", [null, [null, null], [46, 79]]], 0, 0], 0, 0, 0, 0], ["content", "sortOption.name", ["loc", [null, [46, 80], [46, 99]]], 0, 0, 0, 0]],
+        locals: ["sortOption"],
+        templates: []
+      };
+    })();
+    var child3 = (function () {
       var child0 = (function () {
         var child0 = (function () {
           var child0 = (function () {
@@ -7312,11 +7390,11 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
                 "loc": {
                   "source": null,
                   "start": {
-                    "line": 61,
+                    "line": 66,
                     "column": 8
                   },
                   "end": {
-                    "line": 63,
+                    "line": 68,
                     "column": 8
                   }
                 },
@@ -7354,11 +7432,11 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
                 "loc": {
                   "source": null,
                   "start": {
-                    "line": 63,
+                    "line": 68,
                     "column": 8
                   },
                   "end": {
-                    "line": 65,
+                    "line": 70,
                     "column": 8
                   }
                 },
@@ -7395,11 +7473,11 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
               "loc": {
                 "source": null,
                 "start": {
-                  "line": 48,
+                  "line": 53,
                   "column": 3
                 },
                 "end": {
-                  "line": 71,
+                  "line": 76,
                   "column": 3
                 }
               },
@@ -7489,7 +7567,7 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
               morphs[3] = dom.createMorphAt(dom.childAt(element0, [7]), 1, 1);
               return morphs;
             },
-            statements: [["attribute", "src", ["concat", ["http://localhost:60837/Bicycles/Default.GetLogo(id=", ["get", "bic.Id", ["loc", [null, [55, 71], [55, 77]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "bic.Model", ["loc", [null, [57, 11], [57, 24]]], 0, 0, 0, 0], ["content", "bic.Price", ["loc", [null, [58, 12], [58, 25]]], 0, 0, 0, 0], ["block", "if", [["get", "bic.Status", ["loc", [null, [61, 14], [61, 24]]], 0, 0, 0, 0]], [], 0, 1, ["loc", [null, [61, 8], [65, 15]]]]],
+            statements: [["attribute", "src", ["concat", ["http://localhost:60837/Bicycles/Default.GetLogo(id=", ["get", "bic.Id", ["loc", [null, [60, 71], [60, 77]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "bic.Model", ["loc", [null, [62, 11], [62, 24]]], 0, 0, 0, 0], ["content", "bic.Price", ["loc", [null, [63, 12], [63, 25]]], 0, 0, 0, 0], ["block", "if", [["get", "bic.Status", ["loc", [null, [66, 14], [66, 24]]], 0, 0, 0, 0]], [], 0, 1, ["loc", [null, [66, 8], [70, 15]]]]],
             locals: [],
             templates: [child0, child1]
           };
@@ -7500,11 +7578,11 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
             "loc": {
               "source": null,
               "start": {
-                "line": 47,
+                "line": 52,
                 "column": 2
               },
               "end": {
-                "line": 72,
+                "line": 77,
                 "column": 2
               }
             },
@@ -7527,7 +7605,7 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
             dom.insertBoundary(fragment, null);
             return morphs;
           },
-          statements: [["block", "link-to", ["bics.bic", ["get", "bic.Id", ["loc", [null, [48, 25], [48, 31]]], 0, 0, 0, 0]], ["class", "list-group-item"], 0, null, ["loc", [null, [48, 3], [71, 15]]]]],
+          statements: [["block", "link-to", ["bics.bic", ["get", "bic.Id", ["loc", [null, [53, 25], [53, 31]]], 0, 0, 0, 0]], ["class", "list-group-item"], 0, null, ["loc", [null, [53, 3], [76, 15]]]]],
           locals: ["bic"],
           templates: [child0]
         };
@@ -7538,11 +7616,11 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 45,
+              "line": 50,
               "column": 0
             },
             "end": {
-              "line": 74,
+              "line": 79,
               "column": 0
             }
           },
@@ -7574,7 +7652,7 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
           morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]), 1, 1);
           return morphs;
         },
-        statements: [["block", "each", [["get", "model.bics", ["loc", [null, [47, 10], [47, 20]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [47, 2], [72, 11]]]]],
+        statements: [["block", "each", [["get", "sortedBics", ["loc", [null, [52, 10], [52, 20]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [52, 2], [77, 11]]]]],
         locals: [],
         templates: [child0]
       };
@@ -7589,7 +7667,7 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 75,
+            "line": 80,
             "column": 0
           }
         },
@@ -7748,6 +7826,17 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
         var el3 = dom.createTextNode("Add");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
+        var el2 = dom.createTextNode("\n	");
+        dom.appendChild(el1, el2);
+        var el2 = dom.createElement("select");
+        dom.setAttribute(el2, "class", "pull-right");
+        var el3 = dom.createTextNode("\n");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createComment("");
+        dom.appendChild(el2, el3);
+        var el3 = dom.createTextNode("	");
+        dom.appendChild(el2, el3);
+        dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n");
         dom.appendChild(el1, el2);
         dom.appendChild(el0, el1);
@@ -7758,30 +7847,33 @@ define("myapp/templates/deps/dep", ["exports"], function (exports) {
         return el0;
       },
       buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-        var element2 = dom.childAt(fragment, [0, 1]);
-        var element3 = dom.childAt(element2, [1, 1, 1]);
-        var element4 = dom.childAt(element2, [3]);
-        var element5 = dom.childAt(element4, [1, 1, 1]);
-        var element6 = dom.childAt(fragment, [4]);
-        var element7 = dom.childAt(element6, [3]);
-        var morphs = new Array(11);
-        morphs[0] = dom.createMorphAt(element3, 1, 1);
-        morphs[1] = dom.createMorphAt(element3, 3, 3);
-        morphs[2] = dom.createAttrMorph(element5, 'src');
-        morphs[3] = dom.createMorphAt(dom.childAt(element4, [3, 3]), 0, 0);
-        morphs[4] = dom.createMorphAt(dom.childAt(element4, [5, 3]), 0, 0);
-        morphs[5] = dom.createMorphAt(dom.childAt(element4, [7, 3]), 0, 0);
+        var element3 = dom.childAt(fragment, [0, 1]);
+        var element4 = dom.childAt(element3, [1, 1, 1]);
+        var element5 = dom.childAt(element3, [3]);
+        var element6 = dom.childAt(element5, [1, 1, 1]);
+        var element7 = dom.childAt(fragment, [4]);
+        var element8 = dom.childAt(element7, [3]);
+        var element9 = dom.childAt(element7, [5]);
+        var morphs = new Array(13);
+        morphs[0] = dom.createMorphAt(element4, 1, 1);
+        morphs[1] = dom.createMorphAt(element4, 3, 3);
+        morphs[2] = dom.createAttrMorph(element6, 'src');
+        morphs[3] = dom.createMorphAt(dom.childAt(element5, [3, 3]), 0, 0);
+        morphs[4] = dom.createMorphAt(dom.childAt(element5, [5, 3]), 0, 0);
+        morphs[5] = dom.createMorphAt(dom.childAt(element5, [7, 3]), 0, 0);
         morphs[6] = dom.createMorphAt(dom.childAt(fragment, [2]), 1, 1);
-        morphs[7] = dom.createMorphAt(element6, 1, 1);
-        morphs[8] = dom.createAttrMorph(element7, 'disabled');
-        morphs[9] = dom.createElementMorph(element7);
-        morphs[10] = dom.createMorphAt(fragment, 6, 6, contextualElement);
+        morphs[7] = dom.createMorphAt(element7, 1, 1);
+        morphs[8] = dom.createAttrMorph(element8, 'disabled');
+        morphs[9] = dom.createElementMorph(element8);
+        morphs[10] = dom.createAttrMorph(element9, 'onchange');
+        morphs[11] = dom.createMorphAt(element9, 1, 1);
+        morphs[12] = dom.createMorphAt(fragment, 6, 6, contextualElement);
         dom.insertBoundary(fragment, null);
         return morphs;
       },
-      statements: [["content", "model.dep.Name", ["loc", [null, [6, 5], [6, 23]]], 0, 0, 0, 0], ["block", "link-to", ["deps_edit.dep", ["get", "model.dep.Id", ["loc", [null, [7, 34], [7, 46]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [7, 7], [9, 18]]]], ["attribute", "src", ["concat", ["http://localhost:60837/Departments/Default.GetLogo(id=", ["get", "model.dep.Id", ["loc", [null, [16, 71], [16, 83]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "model.dep.Email", ["loc", [null, [22, 8], [22, 27]]], 0, 0, 0, 0], ["content", "model.dep.Address", ["loc", [null, [26, 8], [26, 29]]], 0, 0, 0, 0], ["content", "model.dep.Phone", ["loc", [null, [30, 8], [30, 27]]], 0, 0, 0, 0], ["block", "if", [["subexpr", "eq", [["get", "model.bics.length", ["loc", [null, [37, 11], [37, 28]]], 0, 0, 0, 0], 0], [], ["loc", [null, [37, 7], [37, 31]]], 0, 0]], [], 1, null, ["loc", [null, [37, 1], [39, 8]]]], ["inline", "input", [], ["type", "text", "placeholder", "New Bicycle", "value", ["subexpr", "@mut", [["get", "newBic", ["loc", [null, [42, 53], [42, 59]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [42, 1], [42, 62]]], 0, 0], ["attribute", "disabled", ["get", "disabled", ["loc", [null, [43, 80], [43, 88]]], 0, 0, 0, 0], 0, 0, 0, 0], ["element", "action", ["createBic", ["get", "model.dep.Id", ["loc", [null, [43, 54], [43, 66]]], 0, 0, 0, 0]], [], ["loc", [null, [43, 33], [43, 68]]], 0, 0], ["block", "if", [["subexpr", "gt", [["get", "model.bics.length", ["loc", [null, [45, 10], [45, 27]]], 0, 0, 0, 0], 0], [], ["loc", [null, [45, 6], [45, 30]]], 0, 0]], [], 2, null, ["loc", [null, [45, 0], [74, 7]]]]],
+      statements: [["content", "model.dep.Name", ["loc", [null, [6, 5], [6, 23]]], 0, 0, 0, 0], ["block", "link-to", ["deps_edit.dep", ["get", "model.dep.Id", ["loc", [null, [7, 34], [7, 46]]], 0, 0, 0, 0]], [], 0, null, ["loc", [null, [7, 7], [9, 18]]]], ["attribute", "src", ["concat", ["http://localhost:60837/Departments/Default.GetLogo(id=", ["get", "model.dep.Id", ["loc", [null, [16, 71], [16, 83]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["content", "model.dep.Email", ["loc", [null, [22, 8], [22, 27]]], 0, 0, 0, 0], ["content", "model.dep.Address", ["loc", [null, [26, 8], [26, 29]]], 0, 0, 0, 0], ["content", "model.dep.Phone", ["loc", [null, [30, 8], [30, 27]]], 0, 0, 0, 0], ["block", "if", [["subexpr", "eq", [["get", "model.bics.length", ["loc", [null, [37, 11], [37, 28]]], 0, 0, 0, 0], 0], [], ["loc", [null, [37, 7], [37, 31]]], 0, 0]], [], 1, null, ["loc", [null, [37, 1], [39, 8]]]], ["inline", "input", [], ["type", "text", "placeholder", "New Bicycle", "value", ["subexpr", "@mut", [["get", "newBic", ["loc", [null, [42, 53], [42, 59]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [42, 1], [42, 62]]], 0, 0], ["attribute", "disabled", ["get", "disabled", ["loc", [null, [43, 80], [43, 88]]], 0, 0, 0, 0], 0, 0, 0, 0], ["element", "action", ["createBic", ["get", "model.dep.Id", ["loc", [null, [43, 54], [43, 66]]], 0, 0, 0, 0]], [], ["loc", [null, [43, 33], [43, 68]]], 0, 0], ["attribute", "onchange", ["subexpr", "action", ["sortBy"], ["value", "target.value"], ["loc", [null, [null, null], [44, 77]]], 0, 0], 0, 0, 0, 0], ["block", "each", [["get", "sortOptions", ["loc", [null, [45, 12], [45, 23]]], 0, 0, 0, 0]], [], 2, null, ["loc", [null, [45, 4], [47, 13]]]], ["block", "if", [["subexpr", "gt", [["get", "model.bics.length", ["loc", [null, [50, 10], [50, 27]]], 0, 0, 0, 0], 0], [], ["loc", [null, [50, 6], [50, 30]]], 0, 0]], [], 3, null, ["loc", [null, [50, 0], [79, 7]]]]],
       locals: [],
-      templates: [child0, child1, child2]
+      templates: [child0, child1, child2, child3]
     };
   })());
 });
@@ -7917,7 +8009,7 @@ define("myapp/templates/deps_edit/dep", ["exports"], function (exports) {
         morphs[8] = dom.createElementMorph(element5);
         return morphs;
       },
-      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "name", ["loc", [null, [2, 33], [2, 37]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [2, 7], [2, 39]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "address", ["loc", [null, [5, 36], [5, 43]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [5, 10], [5, 47]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "phone", ["loc", [null, [8, 34], [8, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [8, 8], [8, 42]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [11, 34], [11, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [11, 8], [11, 42]]], 0, 0], ["attribute", "src", ["concat", ["http://localhost:60837/Departments/Default.GetLogo(id=", ["get", "model.Id", ["loc", [null, [14, 67], [14, 75]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["inline", "input", [], ["type", "file", "accept", "image/*", "id", "your-files"], ["loc", [null, [15, 1], [15, 55]]], 0, 0], ["element", "action", ["changeDep", ["get", "model.Id", ["loc", [null, [18, 54], [18, 62]]], 0, 0, 0, 0]], [], ["loc", [null, [18, 33], [18, 64]]], 0, 0], ["element", "action", ["cancel", ["get", "model.Id", ["loc", [null, [19, 51], [19, 59]]], 0, 0, 0, 0]], [], ["loc", [null, [19, 33], [19, 61]]], 0, 0], ["element", "action", ["deleteDep", ["get", "model.Id", ["loc", [null, [20, 54], [20, 62]]], 0, 0, 0, 0]], [], ["loc", [null, [20, 33], [20, 64]]], 0, 0]],
+      statements: [["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "name", ["loc", [null, [2, 33], [2, 37]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [2, 7], [2, 39]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "address", ["loc", [null, [5, 36], [5, 43]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [5, 10], [5, 47]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "phone", ["loc", [null, [8, 34], [8, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [8, 8], [8, 42]]], 0, 0], ["inline", "input", [], ["type", "text", "value", ["subexpr", "@mut", [["get", "email", ["loc", [null, [11, 34], [11, 39]]], 0, 0, 0, 0]], [], [], 0, 0]], ["loc", [null, [11, 8], [11, 42]]], 0, 0], ["attribute", "src", ["concat", ["http://localhost:60837/Departments/Default.GetLogo(id=", ["get", "model.Id", ["loc", [null, [14, 67], [14, 75]]], 0, 0, 0, 0], ")"], 0, 0, 0, 0, 0], 0, 0, 0, 0], ["inline", "input", [], ["type", "file", "accept", "image/*", "id", "file"], ["loc", [null, [15, 1], [15, 49]]], 0, 0], ["element", "action", ["changeDep", ["get", "model.Id", ["loc", [null, [18, 54], [18, 62]]], 0, 0, 0, 0]], [], ["loc", [null, [18, 33], [18, 64]]], 0, 0], ["element", "action", ["cancel", ["get", "model.Id", ["loc", [null, [19, 51], [19, 59]]], 0, 0, 0, 0]], [], ["loc", [null, [19, 33], [19, 61]]], 0, 0], ["element", "action", ["deleteDep", ["get", "model.Id", ["loc", [null, [20, 54], [20, 62]]], 0, 0, 0, 0]], [], ["loc", [null, [20, 33], [20, 64]]], 0, 0]],
       locals: [],
       templates: []
     };
@@ -8135,7 +8227,7 @@ catch(err) {
 /* jshint ignore:start */
 
 if (!runningTests) {
-  require("myapp/app")["default"].create({"name":"myapp","version":"0.0.0+6557f103"});
+  require("myapp/app")["default"].create({"name":"myapp","version":"0.0.0+9c9ba309"});
 }
 
 /* jshint ignore:end */

@@ -194,7 +194,7 @@ define('myapp/tests/routes/bics_edit/bic.jshint', ['exports'], function (exports
   QUnit.module('JSHint | routes/bics_edit/bic.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/bics_edit/bic.js should pass jshint.');
+    assert.ok(false, 'routes/bics_edit/bic.js should pass jshint.\nroutes/bics_edit/bic.js: line 50, col 37, \'$\' is not defined.\n\n1 error');
   });
 });
 define('myapp/tests/routes/deps.jshint', ['exports'], function (exports) {
@@ -221,7 +221,7 @@ define('myapp/tests/routes/deps_edit/dep.jshint', ['exports'], function (exports
   QUnit.module('JSHint | routes/deps_edit/dep.js');
   QUnit.test('should pass jshint', function (assert) {
     assert.expect(1);
-    assert.ok(true, 'routes/deps_edit/dep.js should pass jshint.');
+    assert.ok(false, 'routes/deps_edit/dep.js should pass jshint.\nroutes/deps_edit/dep.js: line 36, col 37, \'$\' is not defined.\n\n1 error');
   });
 });
 define('myapp/tests/routes/index.jshint', ['exports'], function (exports) {

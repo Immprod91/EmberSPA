@@ -41,10 +41,15 @@
 <div class="list-group-item">
 	{{input type="text" placeholder="New Bicycle" value=newBic }}
 	<button class="btn btn-primary" {{action "createBic" model.dep.Id}} disabled={{disabled}}>Add</button>
+	<select class="pull-right" onchange={{action "sortBy" value="target.value"}}>
+		  {{#each sortOptions as |sortOption|}}
+			<option value={{sortOption.id}} selected={{eq sortProperties sortOption.id}}>{{sortOption.name}}</option>
+		  {{/each}}
+	</select>
 </div>
 {{#if (gt model.bics.length 0)}} 
 	<div class="list-group-item">	
-		{{#each model.bics as |bic|}}
+		{{#each sortedBics as |bic|}}
 			{{#link-to "bics.bic" bic.Id class="list-group-item"}}
 				<table>
 					<thead>
